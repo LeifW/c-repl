@@ -1,6 +1,10 @@
 c-repl: a C read-eval-print loop.
 Copyright (C) 2008 Evan Martin <martine@danga.com>
 
+I butchered Setup.lhs, but at least it runs... apart from compiling the
+C bit.  That I compiled manually, and hard-coded the path into Child.hs.
+-Leif Warner <abimelech@gmail.com>
+
 Many programming languages come with a REPL (read-eval-print loop),
 which allows you to type in code line by line and see what it does. This
 is quite useful for prototyping, experimentation, and debugging code.
