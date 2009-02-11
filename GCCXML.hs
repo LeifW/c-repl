@@ -21,10 +21,14 @@ import Text.XML.Expat.Tree as Expat
 
 type XML = BS.ByteString
 
+mylookup id symbolmap = case M.lookup id symbolmap of
+    Nothing -> Left "err"
+    Just ok -> Right ok
+
 -- @runGCCXML code@ runs a gccxml process on |code|, returning the XML output
 -- or an error string on error.
 runGCCXML :: String -> IO (Either String XML)
-runGCCXML code = run `catch` (\e -> do print e; undefined) where
+runGCCXML code = run `catch` (\e -> do print (e::IOException); undefined) where
   run = do
     let cmd = "gccxml - -fxml=/dev/stdout"
     (inp,out,err,pid) <- runInteractiveCommand cmd
@@ -102,7 +106,7 @@ resolveType map unr = do
 -- references.
 symref :: SymbolId -> UnrSym
 symref id = UnrSym (\symbolmap ->
-  case M.lookup id symbolmap :: Either String UnrSym of
+  case mylookup id symbolmap :: Either String UnrSym of
     Left err -> Left $ "lookup failed: " ++ id
     Right ok -> Right ok)
 
