@@ -5,7 +5,7 @@ module Child where
 
 import Prelude hiding (catch)
 import Control.Concurrent
-import Control.Exception
+import Control.OldException
 import Control.Monad.Error
 import Data.Maybe
 import System.Directory
